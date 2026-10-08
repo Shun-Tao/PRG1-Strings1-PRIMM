@@ -1,5 +1,5 @@
 VALID_PREFIX = "SAVE"
-CODE_LENGTH = 8
+CODE_LENGTH = 10 # Changed from 8 to 10 characters for 6 digit codes
 
 
 def normalise(code):
@@ -9,11 +9,13 @@ def normalise(code):
 def is_valid(code):
     code = normalise(code)
 
+    if code.startswith("SAVE00"): # Added another check 
+        return False
     if len(code) != CODE_LENGTH:
         return False
     if not code.startswith(VALID_PREFIX):
         return False
-    if not code[4:].isdigit():
+    if not code[len(VALID_PREFIX):].isdigit(): # Changed so that the valid_prefix can be interchangeable with any value as long as it is the valid prefix
         return False
 
     return True
@@ -26,3 +28,9 @@ for entry in entered_codes:
         print(f"{entry} accepted, discount applied")
     else:
         print(f"{entry} rejected")
+
+# Accepted
+# Accepted
+# Rejected
+# 
+# Rejected
